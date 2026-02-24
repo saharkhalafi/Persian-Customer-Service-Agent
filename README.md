@@ -2,6 +2,9 @@
 
 An end-to-end **Retrieval-Augmented Generation (RAG)** system built in Persian to answer real-world FAQs from the Modiseh e-commerce website with high accuracy, minimal hallucination, and source grounding.
 
+## Demo
+![Screenshot](https://github.com/saharkhalafi/persian-rag-faq/blob/main/Evaluate_data/web%20UI.png) 
+
 ## Project Overview
 
 Goal: Build a complete, local-first Persian RAG pipeline that:
@@ -10,6 +13,7 @@ Goal: Build a complete, local-first Persian RAG pipeline that:
 - Retrieves relevant chunks with near-perfect accuracy (using **re-ranking** for improved precision)
 - Generates concise, faithful answers using Gemini
 - Fully evaluates both retrieval and semantic generation quality
+- Provides a clean, user-friendly **web UI**
 
 ## What I Built – Step by Step
 
@@ -65,6 +69,7 @@ Goal: Build a complete, local-first Persian RAG pipeline that:
 - **Fully reproducible** local pipeline with CLI interface  
 - **Manual + automated evaluation** (human-labeled chunks + JSON export)  
 - **Real-world focus**: built for actual Modiseh FAQ content
+- **UI**: Streamlit 
 
 ## Tech Stack
 
