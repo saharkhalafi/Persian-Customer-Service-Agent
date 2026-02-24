@@ -8,6 +8,7 @@ chunks_preview.txt
 diag_import.py
 retrieval_metrics_2026.json
 test.py
+FAQ.pdf
 
 # Ignore local database folder
 local_chroma_db-2026/
