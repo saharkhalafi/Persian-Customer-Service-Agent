@@ -47,6 +47,7 @@ Goal: Build a complete, local-first Persian RAG pipeline that:
      - actual `retrieved_chunks` (chunk_ids returned by retriever)
 
 6. **Retrieval Performance Comparison**  
+
 | Configuration                              | Embedding Model                          | Re-ranker Model                        | Hit Rate @3 | MRR @3 | Precision @3 | Recall @3 | Key Observations / Notes                                      |
 |--------------------------------------------|------------------------------------------|----------------------------------------|-------------|--------|--------------|-----------|----------------------------------------------------------------|
 | Baseline                                   | paraphrase-multilingual-MiniLM-L12-v2   | —                                      | 0.667       | 0.578  | 0.222        | 0.667     | Basic multilingual model – moderate performance                |
