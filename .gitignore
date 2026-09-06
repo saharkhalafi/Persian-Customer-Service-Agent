@@ -223,5 +223,5 @@ __marimo__/
 # Local/private data
 data/
 database/
-Evaluation_data/
+Evaluate_data/
 local_chroma_db-2026/
