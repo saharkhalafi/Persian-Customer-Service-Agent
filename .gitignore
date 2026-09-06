@@ -218,5 +218,10 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-.xlsx
-.json
+*.xlsx
+
+# Local/private data
+data/
+database/
+Evaluation_data/
+local_chroma_db-2026/
