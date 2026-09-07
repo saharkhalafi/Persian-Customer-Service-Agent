@@ -1,0 +1,31 @@
+capabilities:
+
+  - name: order_count
+    intent: ORDER_COUNT
+    source: postgres
+    tool: get_order_summary
+
+  - name: order_status
+    intent: ORDER_STATUS
+    source: postgres
+    tool: get_order_status
+
+  - name: purchase_history
+    intent: PURCHASE_HISTORY
+    source: postgres
+    tool: get_purchase_history
+
+  - name: return_policy
+    intent: RETURN_POLICY
+    source: knowledge_base
+    tool: search_knowledge
+
+  - name: product_search
+    intent: PRODUCT_SEARCH
+    source: product_database
+    tool: search_products
+
+  - name: memory
+    intent: MEMORY
+    source: conversation_memory
+    tool: search_memory

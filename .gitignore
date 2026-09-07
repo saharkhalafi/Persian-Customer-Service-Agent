@@ -16,6 +16,7 @@ local_chroma_db-2026/
 # C extensions
 *.so
 
+
 # Distribution / packaging
 .Python
 build/
