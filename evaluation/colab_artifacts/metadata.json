@@ -1,0 +1,27 @@
+{
+  "project": "RAG FAQ modiseh",
+  "git_revision": "1d80e3f9d284",
+  "generation_model": "gemini-2.5-flash",
+  "embedding_model": "gemini-embedding-001",
+  "embedding_dim": 768,
+  "chunk_size": 600,
+  "chunk_overlap": 100,
+  "initial_k": 10,
+  "top_k": 3,
+  "final_k": 3,
+  "reranking": {
+    "method": "hybrid BM25",
+    "dense_weight": 0.6,
+    "lexical_weight": 0.4,
+    "candidates": 10
+  },
+  "chroma_collection": "faq_gemini",
+  "chroma_source": "E:\\cursor projects\\RAG FAQ modiseh\\local_chroma_db-2026\\gemini_faq",
+  "bert_score_model": "bert-base-multilingual-cased",
+  "predictions_source": "E:\\cursor projects\\RAG FAQ modiseh\\evaluation\\results\\generation_predictions.json",
+  "dataset_source": "E:\\cursor projects\\RAG FAQ modiseh\\Evaluate_data\\generation_eval_data.json",
+  "chunk_embeddings": "chunk_embeddings.npy",
+  "query_embeddings": "query_embeddings.npy",
+  "chunk_embeddings_shape": [18, 768],
+  "query_embeddings_shape": [20, 768]
+}

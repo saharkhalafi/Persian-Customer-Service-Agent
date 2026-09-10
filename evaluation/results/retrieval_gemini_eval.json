@@ -1,0 +1,676 @@
+{
+  "configuration": {
+    "embedding_model": "gemini-embedding-001",
+    "reranker_model": "BM25 (hybrid 0.6 dense + 0.4 lexical on top-10)",
+    "chunk_size": 600,
+    "chunk_overlap": 100,
+    "collection": "faq_gemini",
+    "initial_k": 10,
+    "final_k": 3,
+    "knowledge_source": "E:\\cursor projects\\RAG FAQ modiseh\\data\\FAQ.pdf",
+    "dataset": "E:\\cursor projects\\RAG FAQ modiseh\\Evaluate_data\\generation_eval_data.json"
+  },
+  "chunk_alignment": {
+    "old_chunk_count": 18,
+    "new_chunk_count": 18,
+    "identical_ids_and_content": false,
+    "old_to_new_mapping": {
+      "0": [
+        0
+      ],
+      "1": [
+        1
+      ],
+      "2": [
+        2
+      ],
+      "3": [
+        3
+      ],
+      "4": [
+        4
+      ],
+      "5": [
+        5
+      ],
+      "6": [
+        6
+      ],
+      "7": [
+        7
+      ],
+      "8": [
+        8
+      ],
+      "9": [
+        9
+      ],
+      "10": [
+        10
+      ],
+      "11": [
+        11
+      ],
+      "12": [
+        12
+      ],
+      "13": [
+        13
+      ],
+      "14": [
+        14
+      ],
+      "15": [
+        15
+      ],
+      "16": [
+        16
+      ],
+      "17": [
+        17
+      ]
+    },
+    "label_source": "remapped by chunk content from previous labels",
+    "generation_json_retrieved_chunks_reused": false,
+    "generation_json_retrieved_chunks_note": "Not used as labels: every query has the same IDs [2, 10, 14, 15, 17]."
+  },
+  "generation_eval_data": {
+    "n_queries": 20,
+    "n_chunks": 18,
+    "metrics": {
+      "Hit Rate @3": 1.0,
+      "MRR": 0.975,
+      "Precision @3": 0.383,
+      "Recall @3": 0.975
+    },
+    "misses": [],
+    "per_query": [
+      {
+        "question": "مهلت مرجوعی کالا در مدیسه چقدر است؟",
+        "ground_truth": "۷ روز پس از دریافت کالا، فقط برای محصولاتی که برچسب «هفت روز فرصت بازگشت» دارند.",
+        "old_relevant_chunk_ids": [
+          9,
+          10
+        ],
+        "relevant_chunk_ids": [
+          9,
+          10
+        ],
+        "retrieved_top3": [
+          9,
+          8,
+          11
+        ],
+        "hit": true,
+        "missed_relevant": [
+          10
+        ]
+      },
+      {
+        "question": "هزینه پست مرجوعی را کی پرداخت می‌کند؟",
+        "ground_truth": "تا سقف ۱۵ هزار تومان بر عهده مدیسه است؛ رسید پستی + شماره کارت به support@modiseh.com ارسال شود.",
+        "old_relevant_chunk_ids": [
+          9
+        ],
+        "relevant_chunk_ids": [
+          9
+        ],
+        "retrieved_top3": [
+          9,
+          10,
+          11
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "برای مرجوع کردن کالا باید چه شرایطی داشته باشد؟",
+        "ground_truth": "جعبه و ملحقات اصلی، تگ و برچسب جدا نشده، کالا از حالت اولیه و پلمپ خارج نشده باشد.",
+        "old_relevant_chunk_ids": [
+          10
+        ],
+        "relevant_chunk_ids": [
+          10
+        ],
+        "retrieved_top3": [
+          10,
+          9,
+          11
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "اگر کالا را نپسندیدم می‌توانم مرجوع کنم؟",
+        "ground_truth": "بله، «نپسندیدن» یکی از دلایل مجاز است (مشروط به داشتن برچسب هفت روز فرصت بازگشت).",
+        "old_relevant_chunk_ids": [
+          10
+        ],
+        "relevant_chunk_ids": [
+          10
+        ],
+        "retrieved_top3": [
+          10,
+          9,
+          13
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "بعد از مرجوعی پول چطور برمی‌گردد؟",
+        "ground_truth": "پس از تأیید واحد کنترل کیفیت، به کیف پول سایت واریز می‌شود؛ قابل انتقال به حساب با ثبت شبا.",
+        "old_relevant_chunk_ids": [
+          11
+        ],
+        "relevant_chunk_ids": [
+          11
+        ],
+        "retrieved_top3": [
+          9,
+          11,
+          8
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "کد تخفیف بعد از مرجوعی دوباره فعال می‌شود؟",
+        "ground_truth": "در صورت مغایرت با مشخصات سایت → بله؛ در غیر این صورت (مثل نپسندیدن) → خیر.",
+        "old_relevant_chunk_ids": [
+          13
+        ],
+        "relevant_chunk_ids": [
+          13
+        ],
+        "retrieved_top3": [
+          13,
+          11,
+          12
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "ثبت مرجوعی از چه طریقی ممکن است؟",
+        "ground_truth": "تنها از طریق ورود به حساب کاربری → سفارش‌های من → ثبت درخواست مرجوعی.",
+        "old_relevant_chunk_ids": [
+          8,
+          9
+        ],
+        "relevant_chunk_ids": [
+          8,
+          9
+        ],
+        "retrieved_top3": [
+          9,
+          8,
+          10
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "آیا خرید تلفنی یا حضوری امکان‌پذیر است؟",
+        "ground_truth": "خیر، امکان خرید تلفنی یا حضوری وجود ندارد.",
+        "old_relevant_chunk_ids": [
+          1
+        ],
+        "relevant_chunk_ids": [
+          1
+        ],
+        "retrieved_top3": [
+          1,
+          2,
+          4
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "چطور رمز عبور را بازیابی کنم؟",
+        "ground_truth": "فراموشی رمز عبور فقط از طریق شماره موبایل انجام می‌شود.",
+        "old_relevant_chunk_ids": [
+          0
+        ],
+        "relevant_chunk_ids": [
+          0
+        ],
+        "retrieved_top3": [
+          0,
+          1,
+          15
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "پرداخت در محل برای کدام شهرها ممکن است؟",
+        "ground_truth": "فقط تهران؛ کالاهای الکترونیک، برقی شخصی و آرایشی/بهداشتی مشمول پرداخت در محل نمی‌شوند.",
+        "old_relevant_chunk_ids": [
+          4
+        ],
+        "relevant_chunk_ids": [
+          4
+        ],
+        "retrieved_top3": [
+          4,
+          6,
+          16
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "چطور سایز مناسب را انتخاب کنم؟",
+        "ground_truth": "سایزها در جزئیات کالا توضیح داده شده؛ ۲ سانتی‌متر تفاوت کوچک‌تر یا بزرگ‌تر را در نظر بگیرید.",
+        "old_relevant_chunk_ids": [
+          5
+        ],
+        "relevant_chunk_ids": [
+          5
+        ],
+        "retrieved_top3": [
+          5,
+          3,
+          10
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "امکان پرداخت اقساطی وجود دارد؟",
+        "ground_truth": "بله، امکان خرید اقساطی از طریق ازکی‌وام و اسنپ‌پی فراهم است.",
+        "old_relevant_chunk_ids": [
+          6
+        ],
+        "relevant_chunk_ids": [
+          6
+        ],
+        "retrieved_top3": [
+          6,
+          3,
+          4
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "کد رهگیری مرسوله را از کجا بگیرم؟",
+        "ground_truth": "از پیامک اطلاع‌رسانی یا حساب کاربری → سفارش‌های من → سفارشات جاری.",
+        "old_relevant_chunk_ids": [
+          6,
+          7
+        ],
+        "relevant_chunk_ids": [
+          6,
+          7
+        ],
+        "retrieved_top3": [
+          7,
+          6,
+          13
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "اگر تأخیر در ارسال باشد مدیسه اطلاع می‌دهد؟",
+        "ground_truth": "در صورت عدم تأمین کالا در تاریخ انتخابی، هماهنگی و اطلاع‌رسانی توسط پشتیبانی انجام می‌شود.",
+        "old_relevant_chunk_ids": [
+          8
+        ],
+        "relevant_chunk_ids": [
+          8
+        ],
+        "retrieved_top3": [
+          8,
+          7,
+          6
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "کد تخفیف اولین خرید چیست؟",
+        "ground_truth": "کد ModisehW برای اولین خرید، سفارش بالای ۳۰۰ هزار تومان.",
+        "old_relevant_chunk_ids": [
+          12
+        ],
+        "relevant_chunk_ids": [
+          12
+        ],
+        "retrieved_top3": [
+          12,
+          13,
+          14
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "اگر کارت هدیه مفقود شود چه می‌شود؟",
+        "ground_truth": "مسئولیت نگهداری بر عهده دارنده است؛ در صورت مفقودی مدیسه خسارت جبران نمی‌کند.",
+        "old_relevant_chunk_ids": [
+          15
+        ],
+        "relevant_chunk_ids": [
+          15
+        ],
+        "retrieved_top3": [
+          15,
+          13,
+          14
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "چطور مدیسو کسب کنم؟",
+        "ground_truth": "روش اول: خرید از فروشگاه (تا سقف ۲۵۰ مدیسو به ازای هر قلم)؛ روش دوم: پیدا کردن روزانه در شهر مدیسه.",
+        "old_relevant_chunk_ids": [
+          16
+        ],
+        "relevant_chunk_ids": [
+          16
+        ],
+        "retrieved_top3": [
+          16,
+          17,
+          3
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "تاریخ انقضای لوازم بهداشتی اعلام می‌شود؟",
+        "ground_truth": "خیر، امکان اعلام تاریخ انقضای مواد خوراکی و لوازم بهداشتی وجود ندارد.",
+        "old_relevant_chunk_ids": [
+          11
+        ],
+        "relevant_chunk_ids": [
+          11
+        ],
+        "retrieved_top3": [
+          11,
+          8,
+          2
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "چطور خبرنامه را لغو کنم؟",
+        "ground_truth": "از طریق حساب کاربری یا بخش انتهایی ایمیل خبرنامه.",
+        "old_relevant_chunk_ids": [
+          1
+        ],
+        "relevant_chunk_ids": [
+          1
+        ],
+        "retrieved_top3": [
+          1,
+          2,
+          7
+        ],
+        "hit": true,
+        "missed_relevant": []
+      },
+      {
+        "question": "آیا می‌توانم سفارش را به شخص دیگری تحویل دهم؟",
+        "ground_truth": "بله، هنگام وارد کردن آدرس می‌توانید نام شخص دیگری را وارد کنید؛ کد تحویل لازم است.",
+        "old_relevant_chunk_ids": [
+          3,
+          4
+        ],
+        "relevant_chunk_ids": [
+          3,
+          4
+        ],
+        "retrieved_top3": [
+          4,
+          3,
+          6
+        ],
+        "hit": true,
+        "missed_relevant": []
+      }
+    ]
+  },
+  "official_retrieval_xlsx": {
+    "n_queries": 15,
+    "metrics": {
+      "Hit Rate @3": 1.0,
+      "MRR": 0.833,
+      "Precision @3": 0.333,
+      "Recall @3": 1.0
+    },
+    "per_query": [
+      {
+        "question": "چرا برای خرید از فروشگاه مدیسه حتماً نیاز به ثبت‌نام است؟",
+        "old_relevant_chunk_ids": [
+          0
+        ],
+        "relevant_chunk_ids": [
+          0
+        ],
+        "retrieved_top3": [
+          0,
+          1,
+          3
+        ],
+        "hit": true
+      },
+      {
+        "question": "چطور میتوانم کلمه عبور خود را بازیابی کنم؟",
+        "old_relevant_chunk_ids": [
+          1
+        ],
+        "relevant_chunk_ids": [
+          1
+        ],
+        "retrieved_top3": [
+          0,
+          1,
+          8
+        ],
+        "hit": true
+      },
+      {
+        "question": "آیا امکان خرید به‌صورت تلفنی یا حضوری از مدیسه وجود دارد؟",
+        "old_relevant_chunk_ids": [
+          1
+        ],
+        "relevant_chunk_ids": [
+          1
+        ],
+        "retrieved_top3": [
+          1,
+          5,
+          4
+        ],
+        "hit": true
+      },
+      {
+        "question": "آیا می‌توانم سفارش خود را لغو کنم؟",
+        "old_relevant_chunk_ids": [
+          2
+        ],
+        "relevant_chunk_ids": [
+          2
+        ],
+        "retrieved_top3": [
+          2,
+          1,
+          3
+        ],
+        "hit": true
+      },
+      {
+        "question": "از چه روش‌هایی می‌توانم هزینه سبد سفارش خود را پرداخت کنم؟",
+        "old_relevant_chunk_ids": [
+          4
+        ],
+        "relevant_chunk_ids": [
+          4
+        ],
+        "retrieved_top3": [
+          4,
+          3,
+          15
+        ],
+        "hit": true
+      },
+      {
+        "question": "چگونه سایز مناسبم را انتخاب کنم؟",
+        "old_relevant_chunk_ids": [
+          5
+        ],
+        "relevant_chunk_ids": [
+          5
+        ],
+        "retrieved_top3": [
+          5,
+          3,
+          6
+        ],
+        "hit": true
+      },
+      {
+        "question": "کد دریافت کالا چیست و آیا ارائه آن به مأمور ارسال ضروری است؟",
+        "old_relevant_chunk_ids": [
+          7
+        ],
+        "relevant_chunk_ids": [
+          7
+        ],
+        "retrieved_top3": [
+          7,
+          6,
+          13
+        ],
+        "hit": true
+      },
+      {
+        "question": "چطور درخواست خود را جهت مرجوعی کالا اعلام کنم؟",
+        "old_relevant_chunk_ids": [
+          9
+        ],
+        "relevant_chunk_ids": [
+          9
+        ],
+        "retrieved_top3": [
+          8,
+          9,
+          10
+        ],
+        "hit": true
+      },
+      {
+        "question": "تا چند روز مهلت‌دارم محصول را مرجوع کنم؟",
+        "old_relevant_chunk_ids": [
+          9
+        ],
+        "relevant_chunk_ids": [
+          9
+        ],
+        "retrieved_top3": [
+          9,
+          10,
+          2
+        ],
+        "hit": true
+      },
+      {
+        "question": "هزینه مرجوعی کالا با پست بر عهده کیست؟",
+        "old_relevant_chunk_ids": [
+          10
+        ],
+        "relevant_chunk_ids": [
+          10
+        ],
+        "retrieved_top3": [
+          9,
+          10,
+          11
+        ],
+        "hit": true
+      },
+      {
+        "question": "شرایط استفاده از کد تخفیف اولین خرید چیست؟",
+        "old_relevant_chunk_ids": [
+          12
+        ],
+        "relevant_chunk_ids": [
+          12
+        ],
+        "retrieved_top3": [
+          12,
+          13,
+          14
+        ],
+        "hit": true
+      },
+      {
+        "question": "اگر کالای خریداری‌شده را مرجوع کنم چه اتفاقی برای کد تخفیف می‌افتد؟",
+        "old_relevant_chunk_ids": [
+          13
+        ],
+        "relevant_chunk_ids": [
+          13
+        ],
+        "retrieved_top3": [
+          13,
+          11,
+          12
+        ],
+        "hit": true
+      },
+      {
+        "question": "چطور می‌توانم مدیسو دریافت کنم؟",
+        "old_relevant_chunk_ids": [
+          17
+        ],
+        "relevant_chunk_ids": [
+          17
+        ],
+        "retrieved_top3": [
+          16,
+          17,
+          6
+        ],
+        "hit": true
+      },
+      {
+        "question": "اعتبار کیف پول از چه طریقی ایجاد می‌شود؟",
+        "old_relevant_chunk_ids": [
+          16
+        ],
+        "relevant_chunk_ids": [
+          16
+        ],
+        "retrieved_top3": [
+          15,
+          16,
+          11
+        ],
+        "hit": true
+      },
+      {
+        "question": "آیا می‌توانم مبلغ سفارشم را به‌صورت اقساطی پرداخت کنم؟",
+        "old_relevant_chunk_ids": [
+          6
+        ],
+        "relevant_chunk_ids": [
+          6
+        ],
+        "retrieved_top3": [
+          6,
+          3,
+          4
+        ],
+        "hit": true
+      }
+    ]
+  }
+}

@@ -18,7 +18,7 @@ capabilities:
   - name: return_policy
     intent: RETURN_POLICY
     source: knowledge_base
-    tool: search_knowledge
+    tool: search_knowledge_base
 
   - name: product_search
     intent: PRODUCT_SEARCH
@@ -28,4 +28,9 @@ capabilities:
   - name: memory
     intent: MEMORY
     source: conversation_memory
-    tool: search_memory
+    tool: get_conversation_history
+
+  - name: memory_search
+    intent: MEMORY_SEARCH
+    source: conversation_memory
+    tool: search_old_conversations

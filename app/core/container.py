@@ -5,12 +5,21 @@ from app.core.gemini import GeminiClient
 
 from app.repositories.order_repository import OrderRepository
 from app.repositories.customer_repository import CustomerRepository
+from app.repositories.knowledge_repository import KnowledgeRepository
+from app.repositories.product_repository import ProductRepository
+from app.repositories.conversation_repository import ConversationRepository
 
 from app.services.order_service import OrderService
 from app.services.customer_service import CustomerService
+from app.services.knowledge_service import KnowledgeService
+from app.services.product_service import ProductService
+from app.services.conversation_service import ConversationService
 
 from app.tools.order_tools import OrderTools
 from app.tools.customer_tools import CustomerTools
+from app.tools.knowledge_tools import KnowledgeTools
+from app.tools.product_tools import ProductTools
+from app.tools.conversation_tools import ConversationTools
 
 
 def build_agent(
@@ -28,8 +37,30 @@ def build_agent(
     customer_service = CustomerService(customer_repository)
     customer_tools = CustomerTools(customer_service)
 
+    # Knowledge base
+    knowledge_repository = KnowledgeRepository(gemini)
+    knowledge_service = KnowledgeService(knowledge_repository)
+    knowledge_tools = KnowledgeTools(knowledge_service)
+
+    # Product catalog
+    product_repository = ProductRepository(db)
+    product_service = ProductService(product_repository)
+    product_tools = ProductTools(product_service)
+
+    # Conversation memory
+    conversation_repository = ConversationRepository(db)
+    conversation_service = ConversationService(
+        conversation_repository
+    )
+    conversation_tools = ConversationTools(
+        conversation_service
+    )
+
     return CustomerSupportAgent(
         gemini_client=gemini,
         order_tools=order_tools,
         customer_tools=customer_tools,
+        knowledge_tools=knowledge_tools,
+        product_tools=product_tools,
+        conversation_tools=conversation_tools,
     )

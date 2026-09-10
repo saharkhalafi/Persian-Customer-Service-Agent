@@ -9,6 +9,9 @@ from app.core.context import RequestContext
 from app.core.gemini import GeminiClient
 from app.tools.order_tools import OrderTools
 from app.tools.customer_tools import CustomerTools
+from app.tools.knowledge_tools import KnowledgeTools
+from app.tools.product_tools import ProductTools
+from app.tools.conversation_tools import ConversationTools
 
 
 @dataclass
@@ -32,10 +35,16 @@ class CustomerSupportAgent:
         gemini_client: GeminiClient,
         order_tools: OrderTools,
         customer_tools: CustomerTools,
+        knowledge_tools: KnowledgeTools,
+        product_tools: ProductTools,
+        conversation_tools: ConversationTools,
     ):
         self.gemini = gemini_client
         self.order_tools = order_tools
         self.customer_tools = customer_tools
+        self.knowledge_tools = knowledge_tools
+        self.product_tools = product_tools
+        self.conversation_tools = conversation_tools
 
     def run(
         self,
@@ -334,6 +343,150 @@ class CustomerSupportAgent:
                                 ]
                             }
 
+                    elif name == "search_knowledge_base":
+
+                        query = str(
+                            args.get("query", "")
+                        ).strip()
+
+                        if not query:
+                            payload = {
+                                "error": "query is required"
+                            }
+
+                        else:
+
+                            limit = int(
+                                args.get("limit", 3)
+                            )
+
+                            limit = min(
+                                max(limit, 1),
+                                10,
+                            )
+
+                            result = (
+                                self.knowledge_tools
+                                .search_knowledge_base(
+                                    context=context,
+                                    query=query[:500],
+                                    limit=limit,
+                                )
+                            )
+
+                            payload = {
+                                "found": bool(result),
+                                "results": [
+                                    item.model_dump()
+                                    for item in result
+                                ],
+                            }
+
+                    elif name == "search_products":
+
+                        query = str(
+                            args.get("query", "")
+                        ).strip()
+
+                        if not query:
+                            payload = {
+                                "error": "query is required"
+                            }
+
+                        else:
+
+                            limit = int(
+                                args.get("limit", 10)
+                            )
+
+                            limit = min(
+                                max(limit, 1),
+                                20,
+                            )
+
+                            result = (
+                                self.product_tools
+                                .search_products(
+                                    context=context,
+                                    query=query[:200],
+                                    limit=limit,
+                                )
+                            )
+
+                            payload = {
+                                "found": bool(result),
+                                "results": [
+                                    item.model_dump()
+                                    for item in result
+                                ],
+                            }
+
+                    elif name == "get_conversation_history":
+
+                        limit = int(
+                            args.get("limit", 10)
+                        )
+
+                        limit = min(
+                            max(limit, 1),
+                            50,
+                        )
+
+                        result = (
+                            self.conversation_tools
+                            .get_conversation_history(
+                                context=context,
+                                limit=limit,
+                            )
+                        )
+
+                        payload = {
+                            "found": bool(result),
+                            "messages": [
+                                item.model_dump()
+                                for item in result
+                            ],
+                        }
+
+                    elif name == "search_old_conversations":
+
+                        search_term = str(
+                            args.get("search_term", "")
+                        ).strip()
+
+                        if not search_term:
+                            payload = {
+                                "error": "search_term is required"
+                            }
+
+                        else:
+
+                            limit = int(
+                                args.get("limit", 10)
+                            )
+
+                            limit = min(
+                                max(limit, 1),
+                                50,
+                            )
+
+                            result = (
+                                self.conversation_tools
+                                .search_old_conversations(
+                                    context=context,
+                                    search_term=search_term[:200],
+                                    limit=limit,
+                                )
+                            )
+
+                            payload = {
+                                "found": bool(result),
+                                "messages": [
+                                    item.model_dump()
+                                    for item in result
+                                ],
+                            }
+
                     else:
 
                         payload = {
@@ -344,7 +497,7 @@ class CustomerSupportAgent:
 
                     payload = {
                         "error": (
-                            "The requested customer data "
+                            "The requested data "
                             "could not be retrieved."
                         )
                     }
@@ -361,8 +514,9 @@ class CustomerSupportAgent:
             )
 
         else:
-
-            return AgentResult(
+            return self._finish(
+                context=context,
+                user_message=user_message,
                 answer=(
                     "متأسفانه در بررسی اطلاعات "
                     "مشکلی پیش آمد. لطفاً دوباره تلاش کنید."
@@ -370,7 +524,30 @@ class CustomerSupportAgent:
                 tool_calls=tool_calls,
             )
 
-        return AgentResult(
+        return self._finish(
+            context=context,
+            user_message=user_message,
             answer=response.text,
+            tool_calls=tool_calls,
+        )
+
+    def _finish(
+        self,
+        context: RequestContext,
+        user_message: str,
+        answer: str,
+        tool_calls: list[ToolCallRecord],
+    ) -> AgentResult:
+        try:
+            self.conversation_tools.save_turn(
+                context=context,
+                user_message=user_message,
+                assistant_message=answer,
+            )
+        except Exception:
+            pass
+
+        return AgentResult(
+            answer=answer,
             tool_calls=tool_calls,
         )
