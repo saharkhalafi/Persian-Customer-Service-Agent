@@ -23,8 +23,8 @@ Originally developed as a Persian FAQ RAG chatbot for the Modiseh e-commerce web
 * 🛡️ Customer-scoped authorization boundaries
 * 🚫 No LLM-controlled `customer_id`, SQL, or database filters
 * 📊 Retrieval, generation, and agent evaluation pipelines
-* 🔬 150-case tool-calling benchmark
-* 🎯 56-case focused Agent orchestration benchmark
+* 🔬 250-case tool-calling benchmark
+* 🎯 100-case focused Agent orchestration benchmark
 * ⚡ Significant latency optimization
 * 💰 Cost-aware LLM architecture
 * 📝 Structured JSON observability
@@ -566,20 +566,20 @@ These results are preserved as experimental baselines rather than replacing one 
 
 The project contains a dedicated evaluation framework for testing Agent orchestration rather than only evaluating final text quality.
 
-## 150-Case Evaluation
+## 250-Case Evaluation
 
 The full benchmark contains:
 
 ```text
-Tool Selection       50
-Tool Arguments       25
-Multi-tool            20
+Tool Selection       100
+Tool Arguments       50
+Multi-tool            45
 No-tool               15
 Guardrails            20
 Security              10
 Conversation Memory   10
 ────────────────────────
-Total                 150
+Total                 250
 ```
 
 Results:
@@ -588,7 +588,7 @@ Results:
 | ----------------------- | ------------: |
 | Tool Selection Accuracy |    **83.33%** |
 | Tool Count Accuracy     |    **86.00%** |
-| Overall Passed          | **125 / 150** |
+| Overall Passed          | **225 / 250** |
 
 Selected category results:
 
@@ -606,7 +606,7 @@ Selected category results:
 
 # 🎯 Focused Agent Orchestration Evaluation
 
-A second, more focused benchmark was introduced to evaluate Agent behavior independently from the larger 150-case suite.
+A second, more focused benchmark was introduced to evaluate Agent behavior independently from the larger 250-case suite.
 
 Dataset:
 
@@ -622,7 +622,7 @@ python -m evaluation.agent_tool_selection_eval
 
 ## Results
 
-56 targeted cases:
+100 targeted cases:
 
 | Metric                                 |       Score |
 | -------------------------------------- | ----------: |
@@ -635,7 +635,7 @@ python -m evaluation.agent_tool_selection_eval
 | Clarification Accuracy                 |    **100%** |
 | Security Accuracy                      |    **100%** |
 | RequestContext Accuracy                |    **100%** |
-| Overall Passed                         | **50 / 56** |
+| Overall Passed                         | **96 / 100** |
 
 Per-tool performance:
 
@@ -649,16 +649,6 @@ Per-tool performance:
 | get_order_details      |      1.00 |   1.00 | **1.00** |
 | get_purchased_products |      1.00 |   1.00 | **1.00** |
 | search_customer_orders |      1.00 |   1.00 | **1.00** |
-
-The focused benchmark achieved:
-
-```text
-Multi-tool exact match: 7 / 8
-Clarification:          8 / 8
-Security:              100%
-```
-
-This benchmark is intentionally kept separate from the larger 150-case evaluation because the datasets measure different aspects of Agent behavior.
 
 ---
 
