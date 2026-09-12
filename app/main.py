@@ -34,8 +34,10 @@ tool argument.
 ## Local testing
 
 1. Set `DATABASE_URL` and `GEMINI_API_KEY` (see `.env.example`).
-2. Start: `uvicorn app.main:app --reload --port 8000`
-3. Open `/docs`, `/health`, `/ready`, and `/metrics`.
+2. Apply schema: `alembic upgrade head` (never created implicitly at startup).
+3. Start (dev): `uvicorn app.main:app --reload --port 8000`
+4. Open `/docs`, `/health`, `/ready`, and `/metrics`.
+Production: `ENVIRONMENT=production` and `uvicorn` without `--reload` (see Docker Compose).
 """
 
 

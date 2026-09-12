@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pytest
@@ -13,6 +12,7 @@ from app.services.product_metadata import (
 )
 from app.services.product_name_matching import name_phrase_variants, name_token_variants
 from app.services.product_query_normalizer import extract_search_tokens, fold_search_text
+from tests.live_db import skip_live_database
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
@@ -153,7 +153,7 @@ def test_token_coverage_score_is_proportional():
     assert params["name_token_count"] == 2
 
 
-@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="DATABASE_URL required")
+@pytest.mark.skipif(skip_live_database(), reason="Live catalog database is required")
 def test_live_name_matching_regressions_and_partial_names():
     from app.core.database import SessionLocal
     from app.repositories.product_repository import ProductRepository
@@ -226,7 +226,7 @@ def test_live_name_matching_regressions_and_partial_names():
         db.close()
 
 
-@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="DATABASE_URL required")
+@pytest.mark.skipif(skip_live_database(), reason="Live catalog database is required")
 def test_live_hard_filter_not_bypassed_by_name_matching():
     from app.core.database import SessionLocal
     from app.repositories.product_repository import ProductRepository

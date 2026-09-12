@@ -251,8 +251,8 @@ Chat errors always look like `{ "error": { "code", "message", "trace_id" } }` wi
 Copy `.env.example` to `.env`. Do not commit secrets.
 
 1. **Environment variables required:** `DATABASE_URL`, `GEMINI_API_KEY`. Other knobs are optional (see `.env.example`).
-2. **Database:** PostgreSQL with the existing `orders` / `products` / customer tables. The API also creates `conversation_messages` and `message_feedback` if missing. FAQ retrieval uses the existing local knowledge store, not a new vector database.
-3. **Start the API:** `uvicorn app.main:app --reload --port 8000`
+2. **Database:** PostgreSQL with the existing `orders` / `products` / customer tables. Schema changes (including `conversation_messages` and `message_feedback`) are applied with Alembic, not on API startup. FAQ retrieval uses the existing local knowledge store, not a new vector database.
+3. **Start the API (development only):** `uvicorn app.main:app --reload --port 8000`
 4. **Swagger:** http://localhost:8000/docs
 5. **Health:** `GET http://localhost:8000/health`
 6. **Readiness:** `GET http://localhost:8000/ready` (PostgreSQL ping; Gemini is not required)
@@ -270,6 +270,35 @@ curl -s http://localhost:8000/api/v1/chat ^
 9. **Error cases:** omit `X-Customer-ID` (401), send `{"message":""}` (400), exceed the chat rate limit (429), stop PostgreSQL and call `/ready` (503).
 
 Automated smoke (no live Gemini): `python -m pytest tests/test_api_smoke.py tests/test_api_observability.py`. Optional live API smoke against a running server: `set RUN_LIVE_SMOKE=1` then `python -m evaluation.local_smoke`.
+
+### Database migrations (Alembic)
+
+The API does **not** create or alter tables at startup. Apply schema with Alembic against the same `DATABASE_URL` the app uses.
+
+```bash
+pip install -r requirements-dev.txt
+alembic upgrade head
+alembic current
+alembic history
+alembic revision -m "describe the change"
+alembic downgrade -1
+```
+
+`0001_initial` is safe on an existing catalog: it creates `users` / `products` / `orders` only when they are missing, and always ensures `conversation_messages`, `message_feedback`, and `idx_products_brand_lower`. Downgrade of that revision drops only the application-owned tables/indexes; it does not drop catalog data.
+
+### Docker / Compose
+
+Production image: `Dockerfile` (no `--reload`, non-root, env-based config). Compose starts Postgres, runs `alembic upgrade head`, then the API.
+
+```bash
+docker compose up --build
+curl http://localhost:8000/health
+curl http://localhost:8000/ready
+```
+
+Set secrets in `.env` or the shell (`GEMINI_API_KEY`, `COMPOSE_POSTGRES_PASSWORD`). Compose Postgres does not reuse host `DATABASE_URL` / `POSTGRES_USER`. After changing Compose DB credentials, recreate the volume: `docker compose down -v`. Do not bake secrets into the image. Production: `ENVIRONMENT=production`.
+
+CI (GitHub Actions) runs pytest, Alembic upgrade/downgrade/upgrade against a service Postgres, and `docker build`. It uses a placeholder `GEMINI_API_KEY` and does not need a real Gemini credential.
 
 **Future OpenTelemetry step:** keep the current `trace_id` ContextVar and `/metrics` names; add an OTLP exporter that maps `http_request` / `agent` / `llm` / `tool` / `product_search` / `database` log events to spans. Do not introduce Kafka, Redis, Celery, or a second API framework for that.
 

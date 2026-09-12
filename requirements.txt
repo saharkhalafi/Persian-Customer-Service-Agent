@@ -1,0 +1,10 @@
+# Runtime dependencies for the FastAPI API (not evaluation notebooks).
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+sqlalchemy==2.0.52
+psycopg[binary]==3.3.5
+alembic==1.16.5
+python-dotenv==1.2.3
+pydantic==2.13.5
+google-genai==2.22.0
+chromadb==1.5.9

@@ -6,6 +6,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+_VALID_ENVIRONMENTS = {"development", "test", "production"}
+ENVIRONMENT = (os.getenv("ENVIRONMENT") or "development").strip().lower()
+if ENVIRONMENT not in _VALID_ENVIRONMENTS:
+    ENVIRONMENT = "development"
+
 
 def env_int(name: str, default: int, minimum: int, maximum: int) -> int:
     raw = os.getenv(name)

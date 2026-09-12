@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pytest
@@ -10,11 +9,12 @@ from app.core.database import SessionLocal
 from app.repositories.product_repository import ProductRepository
 from app.services.product_metadata import extract_product_metadata
 from app.services.product_service import ProductService
+from tests.live_db import skip_live_database
 
 
 pytestmark = pytest.mark.skipif(
-    not os.getenv("DATABASE_URL"),
-    reason="DATABASE_URL is required for live filter tests",
+    skip_live_database(),
+    reason="Live catalog database is required for filter tests",
 )
 
 

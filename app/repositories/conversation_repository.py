@@ -7,27 +7,6 @@ from app.core.observability import traced
 class ConversationRepository:
     def __init__(self, db: Session):
         self.db = db
-        self._ensure_table()
-
-    def _ensure_table(self) -> None:
-        self.db.execute(text("""
-            CREATE TABLE IF NOT EXISTS public.conversation_messages (
-                id BIGSERIAL PRIMARY KEY,
-                customer_id TEXT NOT NULL,
-                role TEXT NOT NULL,
-                content TEXT NOT NULL,
-                created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-            )
-        """))
-        self.db.execute(text("""
-            CREATE INDEX IF NOT EXISTS
-            idx_conversation_messages_customer_created
-            ON public.conversation_messages (
-                customer_id,
-                created_at DESC
-            )
-        """))
-        self.db.commit()
 
     @traced("db_operation", layer="conversation_repository", operation="add_message")
     def add_message(

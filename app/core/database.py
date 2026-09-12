@@ -57,24 +57,6 @@ SessionLocal = sessionmaker(
 )
 
 
-def ensure_indexes() -> None:
-    if not str(DATABASE_URL).startswith("postgres"):
-        return
-    statements = (
-        "CREATE INDEX IF NOT EXISTS idx_products_brand_lower "
-        "ON public.products (LOWER(TRIM(brand)))",
-    )
-    with engine.begin() as connection:
-        for statement in statements:
-            connection.execute(text(statement))
-
-
-try:
-    ensure_indexes()
-except Exception:
-    pass
-
-
 def get_db():
     db = SessionLocal()
 

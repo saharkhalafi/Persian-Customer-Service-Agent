@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pytest
@@ -10,6 +9,7 @@ from app.services.product_metadata import (
     ranking_tokens_for_query,
 )
 from app.services.product_query_normalizer import extract_search_tokens
+from tests.live_db import skip_live_database
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
@@ -56,7 +56,7 @@ def test_sql_without_metadata_still_token_filters():
     assert "THEN 100 ELSE 0 END" in sql
 
 
-@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="DATABASE_URL required")
+@pytest.mark.skipif(skip_live_database(), reason="Live catalog database is required")
 def test_live_relevance_examples():
     from app.core.database import SessionLocal
     from app.repositories.product_repository import ProductRepository
@@ -100,7 +100,7 @@ def test_live_relevance_examples():
         db.close()
 
 
-@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="DATABASE_URL required")
+@pytest.mark.skipif(skip_live_database(), reason="Live catalog database is required")
 def test_more_specific_match_ranks_higher_than_weak_match():
     from app.core.database import SessionLocal
     from app.repositories.product_repository import ProductRepository
@@ -128,7 +128,7 @@ def test_more_specific_match_ranks_higher_than_weak_match():
         db.close()
 
 
-@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="DATABASE_URL required")
+@pytest.mark.skipif(skip_live_database(), reason="Live catalog database is required")
 def test_enable_and_name_remain_tie_breakers():
     from app.core.database import SessionLocal
     from app.repositories.product_repository import ProductRepository
