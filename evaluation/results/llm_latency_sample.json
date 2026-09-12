@@ -1,0 +1,13 @@
+{
+  "results": [
+    {
+      "case": "product",
+      "model": "gemini-2.5-flash",
+      "thinking_budget": 0,
+      "latency_ms": 4126.9,
+      "tools": [
+        "search_products"
+      ]
+    }
+  ]
+}

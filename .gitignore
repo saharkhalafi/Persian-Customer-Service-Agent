@@ -226,3 +226,9 @@ data/
 database/
 Evaluate_data/
 local_chroma_db-2026/
+evaluation/colab_artifacts/
+evaluation/datasets/
+# Generated ML artifacts
+evaluation/colab_artifacts/*.npy
+evaluation/results/*.npy
+evaluation/results/*.npz

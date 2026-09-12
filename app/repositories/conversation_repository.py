@@ -1,6 +1,8 @@
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.core.observability import traced
+
 
 class ConversationRepository:
     def __init__(self, db: Session):
@@ -27,6 +29,7 @@ class ConversationRepository:
         """))
         self.db.commit()
 
+    @traced("db_operation", layer="conversation_repository", operation="add_message")
     def add_message(
         self,
         customer_id: str,
@@ -54,6 +57,7 @@ class ConversationRepository:
         )
         self.db.commit()
 
+    @traced("db_operation", layer="conversation_repository", operation="get_recent_messages")
     def get_recent_messages(
         self,
         customer_id: str,
@@ -82,6 +86,7 @@ class ConversationRepository:
         messages.reverse()
         return messages
 
+    @traced("db_operation", layer="conversation_repository", operation="search_messages")
     def search_messages(
         self,
         customer_id: str,

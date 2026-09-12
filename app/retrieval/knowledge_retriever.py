@@ -7,7 +7,10 @@ from collections import Counter
 
 from chromadb import PersistentClient
 
+from app.core.cache import TtlLruCache
 from app.core.gemini import GeminiClient
+
+_SEARCH_CACHE = TtlLruCache(maxsize=256, ttl_seconds=3600)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -40,6 +43,11 @@ class KnowledgeRetriever:
         limit: int = 3,
     ) -> list[dict]:
         limit = min(max(limit, 1), MAX_LIMIT)
+        cache_key = (query.strip()[:500], limit)
+        cached = _SEARCH_CACHE.get(cache_key)
+        if cached is not None:
+            return [dict(item) for item in cached]
+
         count = self.collection.count()
 
         if count == 0:
@@ -62,9 +70,12 @@ class KnowledgeRetriever:
         results = _parse_query_result(raw)
 
         if not results:
+            _SEARCH_CACHE.set(cache_key, [])
             return []
 
-        return _bm25_rerank(query, results)[:limit]
+        ranked = _bm25_rerank(query, results)[:limit]
+        _SEARCH_CACHE.set(cache_key, [dict(item) for item in ranked])
+        return ranked
 
     def _ensure_index(self) -> None:
         if self.collection.count() > 0:

@@ -1,0 +1,72 @@
+{
+  "product": {
+    "query": "کرم ضد چروک پرایم",
+    "has_sql": true,
+    "explain": "Limit  (cost=2126.56..2126.59 rows=10 width=276) (actual time=79.486..79.488 rows=10 loops=1)\n  Buffers: shared hit=1483\n  ->  Sort  (cost=2126.56..2126.76 rows=80 width=276) (actual time=79.482..79.483 rows=10 loops=1)\n        Sort Key: candidates.relevance_score DESC, (CASE WHEN (candidates.last_status = 'Enable'::text) THEN 1 ELSE 0 END) DESC, candidates.product_name\n        Sort Method: top-N heapsort  Memory: 28kB\n        Buffers: shared hit=1483\n        ->  Subquery Scan on candidates  (cost=2017.83..2124.83 rows=80 width=276) (actual time=53.924..79.323 rows=80 loops=1)\n              Buffers: shared hit=1474\n              ->  Limit  (cost=2017.83..2123.83 rows=80 width=308) (actual time=53.923..79.295 rows=80 loops=1)\n                    Buffers: shared hit=1474\n                    ->  Result  (cost=2017.83..2327.88 rows=234 width=308) (actual time=53.923..79.286 rows=80 loops=1)\n                          Buffers: shared hit=1474\n                          ->  Sort  (cost=2017.83..2018.42 rows=234 width=276) (actual time=53.624..53.636 rows=80 loops=1)\n                                Sort Key: (((((((((((((CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم ضد چروک پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم ضد چروک prime%'::text)) THEN 80 ELSE 0 END + CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ 'کرم ضد چروک پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ 'کرم ضد چروک prime%'::text)) THEN 35 ELSE 0 END))::numeric + CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم ضد چروک پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم ضد چروک prime%'::text)) THEN LEAST('40'::numeric, round((('17'::numeric / (GREATEST(char_length(TRIM(BOTH FROM COALESCE(products.product_name, ''::text))), 1))::numeric) * '55'::numeric), 2)) ELSE '0'::numeric END) + (CASE WHEN (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) = 'کرم ضد چروک پرایم'::text) THEN 20 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%کرم%'::text)) THEN 8 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%ضد%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%ضد%'::text)) THEN 8 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%چروک%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%چروک%'::text)) THEN 8 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) !~~ '%چروک%'::text) AND (COALESCE(products.product_name, ''::text) !~~* '%چروک%'::text) AND (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%چرو%'::text)) THEN 4 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%پرایم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%prime%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%prime%'::text)) THEN 8 ELSE 0 END)::numeric) + (CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) !~~ '%پرایم%'::text) AND (COALESCE(products.product_name, ''::text) !~~* '%پرایم%'::text) AND (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) !~~ '%prime%'::text) AND (COALESCE(products.product_name, ''::text) !~~* '%prime%'::text) AND (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%پرای%'::text)) THEN 4 ELSE 0 END)::numeric) + (CASE WHEN (((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%کرم%'::text)) AND ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%ضد%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%ضد%'::text)) AND ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%چروک%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%چروک%'::text)) AND ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%پرایم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%prime%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%prime%'::text))) THEN 50 ELSE 0 END)::numeric) + round(((((((CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%کرم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%کرم%'::text)) THEN 1 ELSE 0 END + CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%ضد%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%ضد%'::text)) THEN 1 ELSE 0 END) + CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%چروک%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%چروک%'::text)) THEN 1 ELSE 0 END) + CASE WHEN ((regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%پرایم%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%پرایم%'::text) OR (regexp_replace(translate(lower(TRIM(BOTH FROM regexp_replace(COALESCE(products.product_name, ''::text), '[‌[:punct:]]+'::text, ' '::text, 'g'::text))), 'يىك'::text, 'ییک'::text), '\\s+'::text, ' '::text, 'g'::text) ~~ '%prime%'::text) OR (COALESCE(products.product_name, ''::text) ~~* '%prime%'::text)) THEN 1 ELSE 0 END))::numeric / '4'::numeric) * '40'::numeric), 2))) DESC, (CASE WHEN (products.last_status = 'Enable'::text) THEN 1 ELSE 0 END) DESC, products.product_name\n                                Sort Method: quicksort  Memory: 91kB\n                                Buffers: shared hit=1474\n                                ->  Seq Scan on products  (cost=0.00..2009.26 rows=234 width=276) (actual time=1.038..53.105 rows=154 loops=1)\n                                      Filter: (lower(TRIM(BOTH FROM brand)) = ANY ('{prime,پرایم}'::text[]))\n                                      Rows Removed by Filter: 23212\n                                      Buffers: shared hit=1474\nPlanning:\n  Buffers: shared hit=231\nPlanning Time: 5.755 ms\nExecution Time: 79.981 ms"
+  },
+  "orders": {
+    "summary": "Aggregate  (cost=4.37..4.38 rows=1 width=8) (actual time=0.019..0.019 rows=1 loops=1)\n  Buffers: shared hit=2\n  ->  Index Only Scan using idx_orders_customer_order on orders  (cost=0.29..4.36 rows=4 width=7) (actual time=0.015..0.015 rows=0 loops=1)\n        Index Cond: (customer_id = '9206288'::text)\n        Heap Fetches: 0\n        Buffers: shared hit=2\nPlanning:\n  Buffers: shared hit=88\nPlanning Time: 4.112 ms\nExecution Time: 0.044 ms"
+  },
+  "indexes": {
+    "products": [
+      {
+        "indexname": "idx_products_brand",
+        "indexdef": "CREATE INDEX idx_products_brand ON public.products USING btree (brand)"
+      },
+      {
+        "indexname": "idx_products_category_level1",
+        "indexdef": "CREATE INDEX idx_products_category_level1 ON public.products USING btree (category_level1)"
+      },
+      {
+        "indexname": "idx_products_category_level2",
+        "indexdef": "CREATE INDEX idx_products_category_level2 ON public.products USING btree (category_level2)"
+      },
+      {
+        "indexname": "idx_products_product_code",
+        "indexdef": "CREATE INDEX idx_products_product_code ON public.products USING btree (product_code)"
+      },
+      {
+        "indexname": "idx_products_product_name",
+        "indexdef": "CREATE INDEX idx_products_product_name ON public.products USING btree (product_name)"
+      },
+      {
+        "indexname": "idx_products_sku",
+        "indexdef": "CREATE INDEX idx_products_sku ON public.products USING btree (sku)"
+      },
+      {
+        "indexname": "products_pkey",
+        "indexdef": "CREATE UNIQUE INDEX products_pkey ON public.products USING btree (id)"
+      }
+    ],
+    "orders": [
+      {
+        "indexname": "idx_orders_customer_id",
+        "indexdef": "CREATE INDEX idx_orders_customer_id ON public.orders USING btree (customer_id)"
+      },
+      {
+        "indexname": "idx_orders_customer_order",
+        "indexdef": "CREATE INDEX idx_orders_customer_order ON public.orders USING btree (customer_id, order_id)"
+      },
+      {
+        "indexname": "idx_orders_order_id",
+        "indexdef": "CREATE INDEX idx_orders_order_id ON public.orders USING btree (order_id)"
+      },
+      {
+        "indexname": "idx_orders_product_id",
+        "indexdef": "CREATE INDEX idx_orders_product_id ON public.orders USING btree (product_id)"
+      },
+      {
+        "indexname": "idx_orders_status",
+        "indexdef": "CREATE INDEX idx_orders_status ON public.orders USING btree (status)"
+      },
+      {
+        "indexname": "orders_pkey",
+        "indexdef": "CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (id)"
+      }
+    ]
+  },
+  "stats": {
+    "products": 23366,
+    "orders": 38673
+  }
+}

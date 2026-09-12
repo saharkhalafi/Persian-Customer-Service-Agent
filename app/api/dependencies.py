@@ -7,6 +7,7 @@ from app.agents.agent import CustomerSupportAgent
 from app.core.container import build_agent
 from app.core.database import get_db
 from app.core.gemini import GeminiClient
+from app.repositories.feedback_repository import FeedbackRepository
 
 
 @lru_cache
@@ -23,3 +24,9 @@ def get_agent(
         db=db,
         gemini=gemini,
     )
+
+
+def get_feedback_repository(
+    db: Session = Depends(get_db),
+) -> FeedbackRepository:
+    return FeedbackRepository(db)

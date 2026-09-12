@@ -1,27 +1,69 @@
 {
-  "project": "RAG FAQ modiseh",
-  "git_revision": "1d80e3f9d284",
-  "generation_model": "gemini-2.5-flash",
+  "number_of_queries": 15,
+  "number_of_chunks": 18,
   "embedding_model": "gemini-embedding-001",
   "embedding_dim": 768,
   "chunk_size": 600,
   "chunk_overlap": 100,
-  "initial_k": 10,
-  "top_k": 3,
-  "final_k": 3,
-  "reranking": {
-    "method": "hybrid BM25",
-    "dense_weight": 0.6,
-    "lexical_weight": 0.4,
-    "candidates": 10
+  "creation_source": {
+    "script": "evaluation/build_colab_retrieval_artifacts.py",
+    "faq_pdf": "E:\\cursor projects\\RAG FAQ modiseh\\data\\FAQ.pdf",
+    "chunking": "app.retrieval.knowledge_retriever._chunk_faq",
+    "queries_and_ground_truth": "E:\\cursor projects\\RAG FAQ modiseh\\Evaluate_data\\retrieval_eval_data.xlsx",
+    "query_task_type": "RETRIEVAL_QUERY",
+    "chunk_task_type": "RETRIEVAL_DOCUMENT",
+    "created_at_utc": "2026-09-10T10:32:07.425189+00:00"
   },
-  "chroma_collection": "faq_gemini",
-  "chroma_source": "E:\\cursor projects\\RAG FAQ modiseh\\local_chroma_db-2026\\gemini_faq",
-  "bert_score_model": "bert-base-multilingual-cased",
-  "predictions_source": "E:\\cursor projects\\RAG FAQ modiseh\\evaluation\\results\\generation_predictions.json",
-  "dataset_source": "E:\\cursor projects\\RAG FAQ modiseh\\Evaluate_data\\generation_eval_data.json",
-  "chunk_embeddings": "chunk_embeddings.npy",
-  "query_embeddings": "query_embeddings.npy",
-  "chunk_embeddings_shape": [18, 768],
-  "query_embeddings_shape": [20, 768]
+  "query_order": [
+    "چرا برای خرید از فروشگاه مدیسه حتماً نیاز به ثبت‌نام است؟",
+    "چطور میتوانم کلمه عبور خود را بازیابی کنم؟",
+    "آیا امکان خرید به‌صورت تلفنی یا حضوری از مدیسه وجود دارد؟",
+    "آیا می‌توانم سفارش خود را لغو کنم؟",
+    "از چه روش‌هایی می‌توانم هزینه سبد سفارش خود را پرداخت کنم؟",
+    "چگونه سایز مناسبم را انتخاب کنم؟",
+    "کد دریافت کالا چیست و آیا ارائه آن به مأمور ارسال ضروری است؟",
+    "چطور درخواست خود را جهت مرجوعی کالا اعلام کنم؟",
+    "تا چند روز مهلت‌دارم محصول را مرجوع کنم؟",
+    "هزینه مرجوعی کالا با پست بر عهده کیست؟",
+    "شرایط استفاده از کد تخفیف اولین خرید چیست؟",
+    "اگر کالای خریداری‌شده را مرجوع کنم چه اتفاقی برای کد تخفیف می‌افتد؟",
+    "چطور می‌توانم مدیسو دریافت کنم؟",
+    "اعتبار کیف پول از چه طریقی ایجاد می‌شود؟",
+    "آیا می‌توانم مبلغ سفارشم را به‌صورت اقساطی پرداخت کنم؟"
+  ],
+  "chunk_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "files": {
+    "queries_ground_truth": "retrieval_eval_data.xlsx",
+    "chunks": "chunks.json",
+    "query_embeddings": "query_embeddings.npy",
+    "chunk_embeddings": "chunk_embeddings.npy",
+    "verification": "verification_report.json"
+  },
+  "query_embeddings_shape": [
+    15,
+    768
+  ],
+  "chunk_embeddings_shape": [
+    18,
+    768
+  ]
 }

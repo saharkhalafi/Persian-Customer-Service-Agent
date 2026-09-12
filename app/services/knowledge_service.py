@@ -1,3 +1,4 @@
+from app.core.observability import traced
 from app.repositories.knowledge_repository import KnowledgeRepository
 from app.schemas.knowledge_schemas import KnowledgeChunk
 
@@ -9,6 +10,7 @@ class KnowledgeService:
     ):
         self.repository = repository
 
+    @traced("service_operation", layer="knowledge", operation="search_knowledge_base")
     def search_knowledge_base(
         self,
         query: str,

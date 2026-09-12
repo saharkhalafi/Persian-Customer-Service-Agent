@@ -1,3 +1,4 @@
+from app.core.observability import traced
 from app.repositories.order_repository import OrderRepository
 from app.schemas.order_schemas import (
     CustomerOrderSearchResult,
@@ -19,6 +20,7 @@ class OrderService:
     ):
         self.order_repository = order_repository
 
+    @traced("service_operation", layer="order", operation="get_customer_order_summary")
     def get_customer_order_summary(
         self,
         customer_id: str,
@@ -39,6 +41,7 @@ class OrderService:
             ),
         )
 
+    @traced("service_operation", layer="order", operation="get_latest_order")
     def get_latest_order(
         self,
         customer_id: str,
@@ -67,6 +70,7 @@ class OrderService:
             ),
         )
 
+    @traced("service_operation", layer="order", operation="get_order_status")
     def get_order_status(
         self,
         customer_id: str,
@@ -91,6 +95,7 @@ class OrderService:
             city=result.get("city"),
         )
 
+    @traced("service_operation", layer="order", operation="get_order_details")
     def get_order_details(
         self,
         customer_id: str,
@@ -125,6 +130,7 @@ class OrderService:
             for row in rows
         ]
 
+    @traced("service_operation", layer="order", operation="get_order_history")
     def get_order_history(
         self,
         customer_id: str,
@@ -153,6 +159,7 @@ class OrderService:
             for row in rows
         ]
 
+    @traced("service_operation", layer="order", operation="search_customer_orders")
     def search_customer_orders(
         self,
         customer_id: str,
@@ -180,6 +187,7 @@ class OrderService:
             for row in rows
         ]
 
+    @traced("service_operation", layer="order", operation="get_purchased_products")
     def get_purchased_products(
         self,
         customer_id: str,
@@ -207,6 +215,7 @@ class OrderService:
             for row in rows
         ]
 
+    @traced("service_operation", layer="order", operation="get_product_purchase_history")
     def get_product_purchase_history(
         self,
         customer_id: str,

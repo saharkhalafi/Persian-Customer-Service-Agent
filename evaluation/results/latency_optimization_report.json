@@ -1,0 +1,76 @@
+{
+  "baseline_from_local_logs": {
+    "order_summary_ms": 2863,
+    "order_breakdown": {
+      "agent_reasoning_plus_followup_ms": 2850,
+      "tool_get_customer_order_summary_ms": 11,
+      "input_tokens": 3608
+    },
+    "product_search_ms": 22265,
+    "product_breakdown": {
+      "agent_reasoning_ms": 10738,
+      "metadata_llm_fallback_ms": 3631,
+      "db_search_ms": 335,
+      "agent_followup_ms": 7541,
+      "input_tokens_reasoning": 3531
+    },
+    "greeting_no_tool_ms": 39439,
+    "greeting_breakdown": {
+      "agent_reasoning_ms": 39425,
+      "input_tokens": 3524
+    }
+  },
+  "explain_analyze": {
+    "products_rows": 23366,
+    "orders_rows": 38673,
+    "product_query": "کرم ضد چروک پرایم",
+    "before_index": {
+      "plan": "Seq Scan on products Filter LOWER(TRIM(brand))",
+      "execution_time_ms": 79.981,
+      "rows_removed": 23212
+    },
+    "after_index": {
+      "index": "idx_products_brand_lower ON LOWER(TRIM(brand))",
+      "plan": "Bitmap Index Scan on idx_products_brand_lower",
+      "index_scan_ms": 0.033,
+      "heap_scan_ms": 29.932
+    },
+    "orders": {
+      "plan": "Index Only Scan using idx_orders_customer_order",
+      "execution_time_ms": 0.044,
+      "new_index": false
+    }
+  },
+  "changes": [
+    "Parallel independent tools: knowledge retrieval runs beside DB tools; same-session DB tools stay locked",
+    "TTL LRU cache for read-only knowledge search (query, limit)",
+    "LRU cache for deterministic product metadata extraction",
+    "Compressed SYSTEM_PROMPT (same examples and tool-selection rules)",
+    "AGENT_THINKING_BUDGET default 0; structured JSON always thinking_budget=0",
+    "AGENT_MODEL override for flash vs flash-lite A/B",
+    "CREATE INDEX idx_products_brand_lower after EXPLAIN proved unused btree(brand)"
+  ],
+  "after_live_sample": {
+    "model": "gemini-2.5-flash",
+    "thinking_budget": 0,
+    "greeting_no_tool_ms": 1597.2,
+    "order_summary_ms": 2112.4,
+    "product_search_ms": 4126.9
+  },
+  "faster_llm_ab": {
+    "kept_production_model": "gemini-2.5-flash",
+    "thinking_disabled": {
+      "greeting_speedup": "39.4s -> 1.6s",
+      "product_speedup": "22.3s -> 4.1s",
+      "order_speedup": "2.9s -> 2.1s"
+    },
+    "gemini-2.5-flash-lite": "404 not available for new users; not adopted"
+  },
+  "accuracy_guards": [
+    "Product Search ranking SQL unchanged",
+    "Low-confidence LLM metadata fallback unchanged",
+    "Tool names/arguments unchanged",
+    "LLM metadata results are not cached (avoids cross-test/model bleed)",
+    "145 tests passed"
+  ]
+}

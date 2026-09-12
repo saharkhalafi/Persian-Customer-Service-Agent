@@ -260,11 +260,17 @@ def get_tool_declarations():
         types.FunctionDeclaration(
             name="search_products",
             description=(
-                "Search the store product catalog. "
-                "Use when the customer is looking for products to buy, "
-                "or asks about available products, brands, SKUs, "
-                "or product types in the catalog. "
-                "Do not use this for the customer's own past purchases."
+                "Search the store product catalog for products the "
+                "customer wants to buy. "
+                "Use for catalog discovery: product name, brand, type, "
+                "category, attributes, or a price range in the customer's "
+                "own words. "
+                "Pass only the natural-language product request as query. "
+                "Do not generate SQL, structured filters, customer_id, "
+                "or Product Search configuration. "
+                "Do not use for the customer's own past purchases, "
+                "order tracking, account or password help, store policy "
+                "or FAQ, greetings, or unsupported non-product requests."
             ),
             parameters=types.Schema(
                 type="OBJECT",
@@ -272,15 +278,10 @@ def get_tool_declarations():
                     "query": types.Schema(
                         type="STRING",
                         description=(
-                            "Product name, brand, type, SKU, "
-                            "product code, or category to search."
-                        ),
-                    ),
-                    "limit": types.Schema(
-                        type="INTEGER",
-                        description=(
-                            "Maximum number of catalog products. "
-                            "Maximum 20."
+                            "The customer's natural-language product "
+                            "request, including any brand, type, "
+                            "category, or price constraints they said. "
+                            "Do not rewrite it as SQL or filters."
                         ),
                     ),
                 },

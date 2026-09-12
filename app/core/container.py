@@ -12,6 +12,8 @@ from app.repositories.conversation_repository import ConversationRepository
 from app.services.order_service import OrderService
 from app.services.customer_service import CustomerService
 from app.services.knowledge_service import KnowledgeService
+from app.services.product_llm_config import load_product_llm_config
+from app.services.product_llm_ranker import ProductLlmRanker, gemini_generate_json
 from app.services.product_service import ProductService
 from app.services.conversation_service import ConversationService
 
@@ -44,7 +46,15 @@ def build_agent(
 
     # Product catalog
     product_repository = ProductRepository(db)
-    product_service = ProductService(product_repository)
+    product_llm_config = load_product_llm_config()
+    product_service = ProductService(
+        product_repository,
+        llm_ranker=ProductLlmRanker(
+            generate_json=gemini_generate_json(gemini),
+            config=product_llm_config,
+        ),
+        llm_config=product_llm_config,
+    )
     product_tools = ProductTools(product_service)
 
     # Conversation memory

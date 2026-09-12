@@ -1,3 +1,4 @@
+from app.core.observability import traced
 from app.repositories.conversation_repository import ConversationRepository
 from app.schemas.conversation_schemas import ConversationMessage
 
@@ -36,6 +37,7 @@ class ConversationService:
                 content=assistant_message,
             )
 
+    @traced("service_operation", layer="conversation", operation="get_conversation_history")
     def get_conversation_history(
         self,
         customer_id: str,
@@ -50,6 +52,7 @@ class ConversationService:
 
         return self._to_messages(rows)
 
+    @traced("service_operation", layer="conversation", operation="search_old_conversations")
     def search_old_conversations(
         self,
         customer_id: str,
