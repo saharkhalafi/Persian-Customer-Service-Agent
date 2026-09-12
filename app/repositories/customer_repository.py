@@ -1,11 +1,14 @@
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.core.observability import traced
+
 
 class CustomerRepository:
     def __init__(self, db: Session):
         self.db = db
 
+    @traced("db_operation", layer="customer_repository", operation="get_customer_profile")
     def get_customer_profile(
         self,
         customer_id: str,

@@ -1,6 +1,8 @@
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.core.observability import traced
+
 
 class OrderRepository:
 
@@ -11,6 +13,7 @@ class OrderRepository:
     # ORDER SUMMARY
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_order_summary")
     def get_order_summary(
         self,
         customer_id: str,
@@ -59,6 +62,7 @@ class OrderRepository:
     # LATEST ORDER
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_latest_order")
     def get_latest_order(
         self,
         customer_id: str,
@@ -111,6 +115,7 @@ class OrderRepository:
     # ORDER STATUS
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_order_status")
     def get_order_status(
         self,
         customer_id: str,
@@ -150,6 +155,7 @@ class OrderRepository:
     # ORDER DETAILS
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_order_details")
     def get_order_details(
         self,
         customer_id: str,
@@ -206,6 +212,7 @@ class OrderRepository:
     # ORDER HISTORY
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_order_history")
     def get_order_history(
         self,
         customer_id: str,
@@ -262,6 +269,7 @@ class OrderRepository:
     # SEARCH CUSTOMER ORDERS
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="search_customer_orders")
     def search_customer_orders(
         self,
         customer_id: str,
@@ -324,6 +332,7 @@ class OrderRepository:
     # PURCHASED PRODUCTS
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_purchased_products")
     def get_purchased_products(
         self,
         customer_id: str,
@@ -369,6 +378,7 @@ class OrderRepository:
     # PRODUCT PURCHASE HISTORY
     # ---------------------------------------------------------
 
+    @traced("db_operation", layer="order_repository", operation="get_product_purchase_history")
     def get_product_purchase_history(
         self,
         customer_id: str,

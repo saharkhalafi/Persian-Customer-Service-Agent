@@ -219,4 +219,131 @@ def get_tool_declarations():
                 required=["product_query"],
             ),
         ),
+
+        # =========================================================
+        # KNOWLEDGE BASE
+        # =========================================================
+        types.FunctionDeclaration(
+            name="search_knowledge_base",
+            description=(
+                "Search the official store FAQ knowledge base. "
+                "Use for policies, shipping, returns, payment, "
+                "registration, delivery, and other support questions "
+                "that are not about this customer's personal orders "
+                "or profile."
+            ),
+            parameters=types.Schema(
+                type="OBJECT",
+                properties={
+                    "query": types.Schema(
+                        type="STRING",
+                        description=(
+                            "The customer's question or search phrase "
+                            "for the FAQ knowledge base."
+                        ),
+                    ),
+                    "limit": types.Schema(
+                        type="INTEGER",
+                        description=(
+                            "Maximum number of FAQ passages to return. "
+                            "Maximum 10."
+                        ),
+                    ),
+                },
+                required=["query"],
+            ),
+        ),
+
+        # =========================================================
+        # PRODUCT CATALOG
+        # =========================================================
+        types.FunctionDeclaration(
+            name="search_products",
+            description=(
+                "Search the store product catalog for products the "
+                "customer wants to buy. "
+                "Use for catalog discovery: product name, brand, type, "
+                "category, attributes, or a price range in the customer's "
+                "own words. "
+                "Pass only the natural-language product request as query. "
+                "Do not generate SQL, structured filters, customer_id, "
+                "or Product Search configuration. "
+                "Do not use for the customer's own past purchases, "
+                "order tracking, account or password help, store policy "
+                "or FAQ, greetings, or unsupported non-product requests."
+            ),
+            parameters=types.Schema(
+                type="OBJECT",
+                properties={
+                    "query": types.Schema(
+                        type="STRING",
+                        description=(
+                            "The customer's natural-language product "
+                            "request, including any brand, type, "
+                            "category, or price constraints they said. "
+                            "Do not rewrite it as SQL or filters."
+                        ),
+                    ),
+                },
+                required=["query"],
+            ),
+        ),
+
+        # =========================================================
+        # MEMORY
+        # =========================================================
+        types.FunctionDeclaration(
+            name="get_conversation_history",
+            description=(
+                "Get the authenticated customer's recent conversation "
+                "history with this support agent. "
+                "Use when the customer asks what they said before, "
+                "wants recent chat context, or refers to the current "
+                "or recent conversation. "
+                "Never asks for customer_id."
+            ),
+            parameters=types.Schema(
+                type="OBJECT",
+                properties={
+                    "limit": types.Schema(
+                        type="INTEGER",
+                        description=(
+                            "Maximum number of recent messages. "
+                            "Maximum 50."
+                        ),
+                    ),
+                },
+            ),
+        ),
+
+        types.FunctionDeclaration(
+            name="search_old_conversations",
+            description=(
+                "Search the authenticated customer's previous "
+                "conversation messages. "
+                "Use when the customer asks whether they discussed "
+                "a topic before, or wants to find an older message "
+                "by keyword. Never searches other customers."
+            ),
+            parameters=types.Schema(
+                type="OBJECT",
+                properties={
+                    "search_term": types.Schema(
+                        type="STRING",
+                        description=(
+                            "Keyword or phrase to search in this "
+                            "customer's previous messages."
+                        ),
+                    ),
+                    "limit": types.Schema(
+                        type="INTEGER",
+                        description=(
+                            "Maximum number of matching messages. "
+                            "Maximum 50."
+                        ),
+                    ),
+                },
+                required=["search_term"],
+            ),
+        ),
     ]

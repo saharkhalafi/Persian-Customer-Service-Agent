@@ -1,3 +1,4 @@
+from app.core.observability import traced
 from app.repositories.customer_repository import CustomerRepository
 from app.schemas.customer_schemas import CustomerProfile
 
@@ -9,6 +10,7 @@ class CustomerService:
     ):
         self.repository = repository
 
+    @traced("service_operation", layer="customer", operation="get_customer_profile")
     def get_customer_profile(
         self,
         customer_id: str,
