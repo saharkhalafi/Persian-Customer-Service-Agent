@@ -48,7 +48,7 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Run tests
-        run: python -m pytest
+        run: python -m pytest --tb=short -ra
 
       - name: Validate Alembic migrations
         run: |

@@ -1,3 +1,5 @@
+import pytest
+
 from evaluation.agent_tool_selection_eval import (
     DATASET_PATH,
     evaluate_offline,
@@ -12,6 +14,13 @@ from evaluation.agent_tool_selection_metrics import (
 )
 
 
+_SKIP_MISSING_DATASET = pytest.mark.skipif(
+    not DATASET_PATH.exists(),
+    reason="evaluation dataset is local-only and not present in CI",
+)
+
+
+@_SKIP_MISSING_DATASET
 def test_dataset_covers_required_intents():
     dataset = load_dataset()
     assert 40 <= len(dataset) <= 60
@@ -159,6 +168,7 @@ def test_clarification_and_no_tool_scoring():
     assert no_tool["no_tool_pass"] is True
 
 
+@_SKIP_MISSING_DATASET
 def test_offline_aggregation_and_verdict():
     dataset = load_dataset()
     predictions = []
