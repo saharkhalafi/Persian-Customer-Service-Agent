@@ -40,7 +40,7 @@ Originally developed as a Persian FAQ RAG chatbot for the Modiseh e-commerce web
 
 # 🏗️ System Architecture
 
-![Screenshot](/saharkhalafi/hybrid-rag-bi-agent/blob/main/screenshots/bi%20agent.png) 
+![Screenshot](https://github.com/saharkhalafi/hybrid-rag-bi-agent/blob/main/screenshots/bi%20agent.png) 
 
 ---
 # 🧠 AI Agent
