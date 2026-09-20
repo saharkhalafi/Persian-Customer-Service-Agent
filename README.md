@@ -40,7 +40,7 @@ Originally developed as a Persian FAQ RAG chatbot for the Modiseh e-commerce web
 
 # 🏗️ System Architecture
 
-
+![Screenshot](https://github.com/saharkhalafi/Persian-Customer-Service-Agent/blob/main/evaluation/results/architecture%20(2).png) 
 
 ---
 # 🧠 AI Agent
