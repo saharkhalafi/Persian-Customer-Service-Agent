@@ -40,7 +40,7 @@ Originally developed as a Persian FAQ RAG chatbot for the Modiseh e-commerce web
 
 # 🏗️ System Architecture
 
-![Screenshot](https://github.com/saharkhalafi/hybrid-rag-bi-agent/blob/main/screenshots/bi%20agent.png) 
+
 
 ---
 # 🧠 AI Agent
@@ -705,4 +705,4 @@ Supported HTTP error classes include:
 ---
 
 # Demo
-![Screenshot](https://github.com/saharkhalafi/hybrid-rag-bi-agent/blob/main/screenshots/demo_1.png) 
+
