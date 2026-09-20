@@ -704,5 +704,3 @@ Supported HTTP error classes include:
 
 ---
 
-# Demo
-
